@@ -1,0 +1,110 @@
+<html>
+<head>
+    <title>BME</title>
+    <script src = "data.js" type = "text/javascript"></script>
+    <script type = "text/javascript">
+        
+window.onload = function() {
+    
+        var bmeInf = document.getElementById("bmeFaculty");
+        var ceeInf = document.getElementById("ceeFaculty");
+        var cbeInf = document.getElementById("cbeFaculty");
+        
+        bmeInf.addEventListener("click", processFacultyInformation);
+        cbeInf.addEventListener("click", processFacultyInformation);
+        ceeInf.addEventListener("click", processFacultyInformation);
+    
+};
+
+function processFacultyInformation(argv) {
+
+        var i = 0;
+        var j = 0;
+        var faculty = null;
+        var pElem = null;
+        var aElem = null;
+        var cElem = null;
+        var ulElem = null;
+        var liElem = null;
+        var container = null;
+        var awards = null;
+        var dept = null;
+        var elemRef = null;
+        
+        container = document.getElementById("facultyContainerID");
+        
+        container.innerHTML = '';
+        
+        for(i = 0; i < professors[2].data.length; i++){
+
+            faculty = professors[2].data[i];
+
+                if(this.getAttribute("data-ref") == faculty.dept) {
+       
+                pElem = document.createElement("p");
+                pElem.innerHTML = faculty.firstname + " " + faculty.lastname + " ";
+        
+                aElem = document.createElement("a");
+        
+                aElem.setAttribute("href", faculty.g_scholar_url);
+                aElem.setAttribute("target", "_faculty");
+                aElem.innerHTML = faculty.g_scholar_url;
+        
+                pElem.appendChild(aElem);
+        
+                container.appendChild(pElem);
+
+                    if(faculty.g_scholar_keyword) {
+            
+                    pElem = document.createElement("p");
+                    pElem.innerHTML = "<strong>Research</strong>: " + faculty.g_scholar_keyword;
+        
+                    container.appendChild(pElem);
+        
+                    }
+
+                    if(faculty.active_award_title) {
+            
+                    pElem = document.createElement("p");
+                    pElem.innerHTML = "<strong>Active Award(s)</strong> ";
+                
+                    container.appendChild(pElem);
+
+                    awards = faculty.active_award_title.split(";");
+        
+                    ulElem = document.createElement("ul");
+        
+                        for(j = 0; j < awards.length; j++){
+            
+                        liElem = document.createElement("li");
+          
+                        liElem.innerHTML = awards[j];
+          
+                        ulElem.appendChild(liElem);
+            
+                        }
+        
+                    container.appendChild(ulElem);
+        
+        }
+        
+        container.appendChild(document.createElement("hr"));
+                              
+        }
+        
+        }
+        
+        argv.preventDefault();
+        
+}
+        </script>
+</head>
+<body>
+    <p>
+        <b><a href = "#" data-ref = "BME" id = "bmeFaculty">Show BME</a></b> |
+        <b><a href = "#" data-ref = "CEE" id = "ceeFaculty">Show CEE</a></b> |
+        <b><a href = "#" data-ref = "CBE" id = "cbeFaculty">Show CBE</a></b>
+    </p>
+    <div id = "facultyContainerID"></div>
+</body>
+</html>
